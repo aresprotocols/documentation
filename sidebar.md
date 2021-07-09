@@ -5,5 +5,5 @@
 - [Contact Us](contact_us)
 - **Links**
 - [![Github](assets/img/github.svg)Github](https://github.com/aresprotocols)
-- [![Twitter](assets/img/twitter.svg)@AresProtocol](https://twitter.com/AresProtocol)
+- [![Twitter](assets/img/twitter.svg)@AresProtocollab](https://twitter.com/AresProtocollab)
 - [![Wiki](assets/img/wikipedia.svg)Wiki](https://github.com/aresprotocols/wiki)

@@ -1,12 +1,12 @@
-Website: [https://www.aresprotocol.com](https://www.aresprotocol.com)
+Website: [https://www.aresprotocol.io](https://www.aresprotocol.io)
 
 Github:: [https://github.com/aresprotocols](https://github.com/aresprotocols)
 
-Medium: [https://medium.com/@aresprotocol](https://medium.com/@aresprotocol)
+Medium: [https://medium.com/@aresprotocollab](https://medium.com/@aresprotocollab)
 
-Twitter: [https://twitter.com/AresProtocol](https://twitter.com/AresProtocol)
+Twitter: [https://twitter.com/AresProtocolLab](https://twitter.com/AresProtocolLab)
 
-Telegram: [https://t.me/Aresprotocols](https://t.me/Aresprotocols)
+Telegram: [https://t.me/Aresprotocol](https://t.me/Aresprotocol)
 
-Email: <info@aresprotocol.com>
+Email: <info@aresprotocol.io>
 
