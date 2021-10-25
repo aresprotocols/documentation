@@ -17,15 +17,13 @@
    * 不同价格获取可以指定不同的获取频率，最快的频率是1表示每个区块提价都会获取该价格，该频率可以通过治理等方式在链上修改“RequestInterval”进行升级。
    * 验证人提交价格会受到报价偏移量的检测，如果偏移超过阈值，将不会参与平均值计算，另外会被纳入到abnormal列表中。
 
-3. 链上数据存储
+3. 验证人提交询问式报价价格
    
-   * PricesRequests 用来存储价格Token治理相关数据信息，包括价格标识（[u8]）、解析标识（u8）、解析版本（u32）、精度（FractionLength）、请求间隔（RequestInterval）。
-   * PricePoolDepth 用来存储价格报价池深度信息，包括一个 u32 深度变量，用来控制单个报价池的最大存储数量。
-   * AresPrice 报价池，用来记录单词报价的具体信息，包括价格标识（[u8]）、价格（u64）、报价人的AccountID、报价时所处的区块号、精度（FractionLength）、报价数据的原值信息（JsonNumberValue）。
-   * AresAvgPrice 报价均值聚合，可以在runtime中指定，使用平均数或者中位数聚合方式，包括价格标识（[u8]）、价格（u64）、精度（FractionLength）信息。
-   * JsonNumberValue 价格解析原值数据，当精度发生变化是用来重新计算精度，包括整数（u64）、小数部分（u64）、小数长度（u32）以及指数（u32）
-   * 增加价格偏差列表
-   * 在偏差列表的价格数据进入挑战区
+   * 验证人通过链下工作机检查是否有`询价请求`。
+   * 一旦发现询价请求，则迅速获取价格并提交。
+   * 当所有验证人均报价后则计算最终的均价并放到链上。
+   * 如果有个别验证人无法提交报价，那么超过延迟区块的最终限定值后，会判断是否大于提交报价的门槛，如果大于则提交报价。
+   * 如果因为验证人门槛数量不达标导致价格无法提交则会产生退费，退还问价人的费用。
 
 
 4. 链上交易方法
@@ -54,7 +52,7 @@
      * 通过则惩罚验证人（扣除挑战费用的7倍），奖励挑战用户（奖励挑战费用的5倍）另外2份分别支付给议会和国库
      * 关注则惩罚用户，扣除用户费用给议会
 
-7. 存储
+7. 链上存储
 
   * AresPrice 存储报价信息
   * AresAvgPrice 存储平均价格
@@ -62,6 +60,16 @@
   * PricesRequests 存储请求Token
   * RequestBaseOnchain 存储链上请求的 BaseKey 主要用于测试。
   * PriceAllowableOffset 存储在某个区间中，价格上链允许的偏移量。
+  * AresAbnormalPrice 用于存储偏移值过大的报价数据池。
+  * JumpBlockNumber 用来存储某个价格具体的跳块值的数据存储，主要作用是在 Arua 共识下防止同一验证人连续对某一价格报价。
+  * LastPriceAuthor 用于记录某一价格最后更新的提交人，配合 JumpBlockNumber 完成跳块操作。
+  * OcwControlSetting 让OCW的一些常规控制参数可以通过链上治理进行修改。
+  * PriceAllowableOffset 价格允许的最大偏移百分比 0~100 取值
+  * PurchasedAvgPrice 问价后生成的平均值数据。
+  * PurchasedDefaultSetting 存储问价相关默认设置数据的存储结构，通过链上治理可以在线进行更新配置。
+  * PurchasedOrderPool 用来存储已经提交问价报价订单的存储结构。
+  * PurchasedPricePool 存储问价报价信息的存储结构。
+  * PurchasedRequestPool 保存问价的请求池。
 
 6. 事件
   
@@ -71,6 +79,14 @@
     * UpdatePriceRequest 币价Token 更新
     * PricePoolDepthUpdate 报价池深度更新
     * PriceAllowableOffsetUpdate 报价允许偏移量更新
+
+    * PurchasedRequestWorkHasEnded 询价请求工作已经结束，一般来讲此时验证人节点提交报价过晚会产生此事件。 
+    * NewPurchasedPrice 新的询问式报价更新。
+    * NewPurchasedRequest 产生的新的询问式报价请求，需要关注这里面的第一个 Vec<u8> 这是 purchased_id 用于后期查询平均报价使用。
+    * PurchasedAvgPrice 询问式平均价格更新，一旦该事件发生意味着该 purchased_id 对应的询问式报价工作结束。
+    * UpdatePurchasedDefaultSetting 询问式报价统一配置数据更新。
+    * UpdateOcwControlSetting OCW工作机统一参数配置更新。
+
 
 7. 错误
    
