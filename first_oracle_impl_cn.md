@@ -70,6 +70,7 @@
   * PurchasedOrderPool 用来存储已经提交问价报价订单的存储结构。
   * PurchasedPricePool 存储问价报价信息的存储结构。
   * PurchasedRequestPool 保存问价的请求池。
+  
 
 6. 事件
   
@@ -86,6 +87,7 @@
     * PurchasedAvgPrice 询问式平均价格更新，一旦该事件发生意味着该 purchased_id 对应的询问式报价工作结束。
     * UpdatePurchasedDefaultSetting 询问式报价统一配置数据更新。
     * UpdateOcwControlSetting OCW工作机统一参数配置更新。
+    * InsufficientCountOfValidators 询问式价格最终验证判定为，验证人数量不足，造成平均价格无法正常提交。
 
 
 7. 错误
