@@ -258,7 +258,7 @@ symbols 需要请求的交易对
 >
 > url = baseurl + queryparam
 >
-> url =  http://127.0.0.1:5566/api/getHttpErrorInfo
+> url =  http://127.0.0.1:5566/api/getHttpErrorInfo?index=0
 >
 > queryparam = index=0
 >
