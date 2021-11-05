@@ -342,7 +342,7 @@ symbols 需要请求的交易对
 >
 > url = baseurl + queryparam
 >
-> url = http://127.0.0.1:5566/api/setWeight?weight=10&symbol=btcusdt&user=root&password=49ba59abbe56e057&exchange=ok
+> url = http://127.0.0.1:5566/api/setWeight?exchange=coinbase&symbol=btc-usdt&weight=3
 >
 > baseurl = http://127.0.0.1:5566/api/setWeight
 >
