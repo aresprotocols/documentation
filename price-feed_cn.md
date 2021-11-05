@@ -346,7 +346,7 @@ symbols 需要请求的交易对
 >
 > baseurl = http://127.0.0.1:5566/api/setWeight
 >
-> queryparam = weight=10&symbol=btcusdt&user=root&password=49ba59abbe56e057&exchange=ok
+> queryparam = exchange=coinbase&symbol=btc-usdt&weight=3
 >
 > 返回结构:
 >
